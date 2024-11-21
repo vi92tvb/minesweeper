@@ -1,0 +1,52 @@
+<h1 class="board-name">Board name: <%= @board.name %></h1>
+<p class="board-info">Dimensions: <%= @board.width %> x <%= @board.height %></p>
+<p class="board-info">Number of mines: <%= @board.num_mines %></p>
+<p class="board-info">Owner: <%= @user.email %></p>
+<p class="board-info">Created At: <%= @board.created_at.strftime("%B %d, %Y") %></p>
+<h2 class="board-layout-title">Minesweeper Board Layout:</h2>
+
+<div class="board-container">
+
+  <div class="pagination-top">
+    <%= link_to "Up", board_path(@board, page_row: [@page_row.to_i - 1, 0].max, page_col: @page_col) %>
+  </div>
+
+  <div class="table-container">
+    <div class="pagination-left">
+      <%= link_to "Left", board_path(@board, page_row: @page_row, page_col: [@page_col.to_i - 1, 0].max) %>
+    </div>
+
+    <table class="board-table">
+      <tr>
+        <td class="empty-cell"></td>
+        <% @cols.each do |col| %>
+          <td class="column-header"><%= col + 1 %></td>
+        <% end %>
+      </tr>
+
+      <% @rows.each do |row| %>
+        <tr>
+          <td class="row-header"><%= row + 1 %></td>
+          
+          <% @cols.each do |col| %>
+            <td class="board-cell">
+              <% if @mines.any? { |mine| mine[:x] == col && mine[:y] == row } %>
+                <span class="mine-icon">💣</span>
+              <% else %>
+                &nbsp;
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+
+    <div class="pagination-right">
+      <%= link_to "Right", board_path(@board, page_row: @page_row, page_col: [@page_col.to_i + 1, (@board.width / 20).floor].min) %>
+    </div>
+  </div>
+
+  <div class="pagination-bottom">
+    <%= link_to "Down", board_path(@board, page_row: [@page_row.to_i + 1, (@board.height / 20).floor].min, page_col: @page_col) %>
+  </div>
+</div>

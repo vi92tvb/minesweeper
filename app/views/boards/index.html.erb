@@ -1,0 +1,54 @@
+<h1>Minesweeper</h1>
+
+<%= form_with model: @board, local: true do |form| %>
+  <% if @board.errors.any? %>
+    <div class="error_messages">
+      <h2><%= pluralize(@board.errors.count, "error") %> prohibited this board from being saved:</h2>
+      <ul>
+        <% @board.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class= "form-field">
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div class= "form-field">
+    <%= form.label :name, "Board name" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class= "form-field">
+    <%= form.label :width, "Board width" %>
+    <%= form.number_field :width, min: 1 %>
+  </div>
+
+  <div class= "form-field">
+    <%= form.label :height, "Board height" %>
+    <%= form.number_field :height, min: 1 %>
+  </div>
+
+  <div class= "form-field">
+    <%= form.label :num_mines, "Number of Mines" %>
+    <%= form.number_field :num_mines, min: 1 %>
+  </div>
+
+  <div>
+    <%= form.submit "Generate Board" %>
+  </div>
+<% end %>
+
+<h1>Generated Minesweeper Boards</h1>
+<ul>
+  <% @boards.each do |board| %>
+    <li>
+      <%= link_to board.name, board_path(board) %> - Dimensions: <%= board.width %> x <%= board.height %> - Owner: <%= board.user.email %> - Created At: <%= board.created_at.strftime("%B %d, %Y") %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'View All Boards', boards_path %>

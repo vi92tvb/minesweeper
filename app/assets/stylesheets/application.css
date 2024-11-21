@@ -1,0 +1,130 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+/*
+ *= require bootstrap
+ *= require_tree .
+ *= require_self
+ */
+
+.board-name {
+  text-align: center;
+  font-size: 2em;
+  margin-top: 20px;
+  color: #4CAF50;
+}
+
+.board-info {
+  text-align: center;
+  font-size: 1em;
+  margin: 10px 0;
+}
+
+.board-layout-title {
+  text-align: center;
+  font-size: 1em;
+  margin-top: 30px;
+  color: #4CAF50;
+}
+
+.board-table {
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.board-cell, .column-header, .row-header, .empty-cell {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  border: 1px solid #999;
+}
+
+.board-cell:hover {
+  background-color: #f1f1f1;
+  transform: scale(1.1);
+}
+
+.board-cell.mine {
+  color: white;
+}
+
+.board-cell:not(.mine) {
+  color: white;
+  border-radius: 5px;
+  background-color: #e1e1e1;
+}
+
+@media (max-width: 768px) {
+  .board-cell {
+    width: 30px;
+    height: 30px;
+    font-size: 1em;
+  }
+}
+
+.column-header, .row-header, .empty-cell {
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+}
+
+.board-container {
+  display: flex;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  min-width: max-content;
+}
+
+.pagination-left,
+.pagination-right,
+.pagination-top,
+.pagination-bottom {
+  padding: 10px;
+  margin: 5px;
+  text-align: center;
+  background-color: #4CAF50;
+  border-radius: 5px;
+  cursor: pointer;
+  min-width: 56px;
+}
+
+.pagination-left:hover,
+.pagination-right:hover,
+.pagination-top:hover,
+.pagination-bottom:hover {
+  background-color: #299222;
+}
+
+.pagination-left a,
+.pagination-right a,
+.pagination-top a,
+.pagination-bottom a {
+  color: white;
+}
+
+a {
+  text-decoration: none;
+}
+
