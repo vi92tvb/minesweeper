@@ -8,6 +8,13 @@ class CreateBoardForm
   attribute :height
   attribute :num_mines
 
+  validates :num_mines, numericality: { 
+    less_than_or_equal_to: ->(form) { form.width.to_i * form.height.to_i }, 
+    message: ->(form, data) { 
+      "Number of mines cannot be greater than the total number of cells on the board"
+    }
+  }  
+
   def save
     return false if invalid?
 

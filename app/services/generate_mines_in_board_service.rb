@@ -13,7 +13,7 @@ class GenerateMinesInBoardService < ApplicationService
 
   def generate_mines(width, height, num_mines)
     placed_mines = 0
-    existed_pos = []
+    existed_pos = {}
     mines_pos = []
 
     while placed_mines < num_mines
@@ -21,9 +21,12 @@ class GenerateMinesInBoardService < ApplicationService
         row = rand(0...height)
         col = rand(0...width)
 
-        next if existed_pos.include?([row, col])
+        pos_key = [row, col]
 
-        existed_pos << [row, col]
+        next if existed_pos[pos_key]
+
+        existed_pos[pos_key] = true
+
         mines_pos << { board_id: @board.id, x: row, y: col }
         placed_mines += 1
         break;

@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.0].define(version: 2024_11_21_024718) do
-  create_table "boards", force: :cascade do |t|
+  create_table "boards", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.integer "width"
     t.integer "height"
@@ -21,7 +21,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_024718) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "mines", force: :cascade do |t|
+  create_table "mines", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "board_id"
     t.integer "x"
     t.integer "y"
@@ -29,7 +29,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_024718) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

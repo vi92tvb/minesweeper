@@ -1,9 +1,12 @@
+<div class="back-btn">
+  <%= link_to "Back to home", root_path %>
+</div>
+
 <h1 class="board-name">Board name: <%= @board.name %></h1>
 <p class="board-info">Dimensions: <%= @board.width %> x <%= @board.height %></p>
 <p class="board-info">Number of mines: <%= @board.num_mines %></p>
 <p class="board-info">Owner: <%= @user.email %></p>
-<p class="board-info">Created At: <%= @board.created_at.strftime("%B %d, %Y") %></p>
-<h2 class="board-layout-title">Minesweeper Board Layout:</h2>
+<p class="board-info">Created At: <%= @board.created_at.strftime("%Y/%m/%d %H:%M:%S") %></p>
 
 <div class="board-container">
 
@@ -30,7 +33,7 @@
           
           <% @cols.each do |col| %>
             <td class="board-cell">
-              <% if @mines.any? { |mine| mine[:x] == col && mine[:y] == row } %>
+              <% if @mines.any? { |mine| mine[:x] == row && mine[:y] == col } %>
                 <span class="mine-icon">💣</span>
               <% else %>
                 &nbsp;

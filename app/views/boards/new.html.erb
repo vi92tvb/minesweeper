@@ -1,0 +1,6 @@
+
+<div class="back-btn">
+  <%= link_to "Back to home", root_path %>
+</div>
+<% content_for :title, "New board" %>
+<%= render "form", board: @board %>

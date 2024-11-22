@@ -11,6 +11,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")doc
   # root "posts#index"
-  resources :boards, only: [:index, :new, :create, :show]
-  root 'boards#index'
+  resources :boards, only: [:index, :new, :create, :show] do
+    get 'all_boards', to: 'boards#home'
+  end
+
+  root 'boards#home'
 end

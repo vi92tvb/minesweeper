@@ -28,4 +28,8 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  errors:
+    messages:
+      num_mines_too_large: "The number of mines cannot exceed the available spaces on the board"
+
+

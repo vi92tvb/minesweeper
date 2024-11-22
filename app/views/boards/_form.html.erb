@@ -1,0 +1,43 @@
+<%= form_with model: @form, url: boards_path, local: true do |form| %>
+  <% if @form.errors.any? %>
+    <div class="error-messages">
+      <h2>There were some errors with your form:</h2>
+      <ul>
+        <% @form.errors.messages.each do |attr, msg| %>
+          <% msg.each do |val| %>
+            <li><%= val %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-field">
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div class="form-field">
+    <%= form.label :name, "Board name" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="form-field">
+    <%= form.label :width, "Board width" %>
+    <%= form.number_field :width, min: 1 %>
+  </div>
+
+  <div class="form-field">
+    <%= form.label :height, "Board height" %>
+    <%= form.number_field :height, min: 1 %>
+  </div>
+
+  <div class="form-field">
+    <%= form.label :num_mines, "Number of mines" %>
+    <%= form.number_field :num_mines, min: 1 %>
+  </div>
+
+  <div>
+    <%= form.submit "Generate Board", class: "common-btn" %>
+  </div>
+<% end %>
