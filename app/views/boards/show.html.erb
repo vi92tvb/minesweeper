@@ -20,36 +20,29 @@
     </div>
 
     <table class="board-table">
-      <tr>
-        <td class="empty-cell"></td>
-        <% @cols.each do |col| %>
-          <td class="column-header"><%= col + 1 %></td>
-        <% end %>
-      </tr>
-
       <% @rows.each do |row| %>
-        <tr>
-          <td class="row-header"><%= row + 1 %></td>
-          
+        <tr>          
           <% @cols.each do |col| %>
-            <td class="board-cell">
-              <% if @mines.any? { |mine| mine[:x] == row && mine[:y] == col } %>
+            <% if @mines.any? { |mine| mine[:x] == row && mine[:y] == col } %>
+              <td class="board-cell mine">
                 <span class="mine-icon">💣</span>
-              <% else %>
+              </td>
+            <% else %>
+              <td class="board-cell">
                 &nbsp;
-              <% end %>
-            </td>
+              </td>
+            <% end %>
           <% end %>
         </tr>
       <% end %>
     </table>
 
     <div class="pagination-right">
-      <%= link_to "Right", board_path(@board, page_row: @page_row, page_col: [@page_col.to_i + 1, (@board.width / 20).floor].min) %>
+      <%= link_to "Right", board_path(@board, page_row: @page_row, page_col: [@page_col.to_i + 1, (@board.width / @limit_cell).floor].min) %>
     </div>
   </div>
 
   <div class="pagination-bottom">
-    <%= link_to "Down", board_path(@board, page_row: [@page_row.to_i + 1, (@board.height / 20).floor].min, page_col: @page_col) %>
+    <%= link_to "Down", board_path(@board, page_row: [@page_row.to_i + 1, (@board.height / @limit_cell).floor].min, page_col: @page_col) %>
   </div>
 </div>

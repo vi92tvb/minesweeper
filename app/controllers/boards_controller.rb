@@ -23,7 +23,7 @@ class BoardsController < ApplicationController
     if saved_success
       GenerateMinesInBoardService.call(board)
 
-      redirect_to boards_path
+      redirect_to board_path(board)
     else
       render :home, status: :unprocessable_entity
     end
@@ -35,7 +35,6 @@ class BoardsController < ApplicationController
 
     if @rows.empty? || @cols.empty?
       redirect_to board_path(@board, page_row: 0, page_col: 0)
-      return
     end
 
     @mines = @board.mines.where(x: @rows, y: @cols)
@@ -44,7 +43,7 @@ class BoardsController < ApplicationController
   private
 
   def set_board
-    @limit_cell = 20
+    @limit_cell = 30
     @page_row = (params[:page_row] || 0).to_i
     @page_col = (params[:page_col] || 0).to_i
 

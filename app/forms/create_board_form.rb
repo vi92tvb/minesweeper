@@ -21,14 +21,20 @@ class CreateBoardForm
     ActiveRecord::Base.transaction do
       board_name = name || Board.default_name
 
-      resource = User.new(email: email, board_attributes: { name: board_name,
-                                                            width: width.to_i,
-                                                            height: height.to_i,
-                                                            num_mines: num_mines.to_i })
+      user = User.find_or_initialize_by(email: email)
+      user.save
 
-      return [true, resource.board] if resource.save
+      board = Board.new(
+        user_id: user.id,
+        name: board_name,
+        width: width.to_i,
+        height: height.to_i,
+        num_mines: num_mines.to_i
+      )
 
-      errors.merge!(resource.errors)
+      return [true, board] if board.save
+
+      errors.merge!(board.errors)
       raise ActiveRecord::Rollback
     end
 

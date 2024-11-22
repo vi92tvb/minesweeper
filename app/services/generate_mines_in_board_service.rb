@@ -1,4 +1,3 @@
-
 class GenerateMinesInBoardService < ApplicationService
   def initialize(board)
     @board = board
@@ -12,31 +11,23 @@ class GenerateMinesInBoardService < ApplicationService
   private
 
   def generate_mines(width, height, num_mines)
-    placed_mines = 0
-    existed_pos = {}
     mines_pos = []
-
-    while placed_mines < num_mines
-      loop do
-        row = rand(0...height)
-        col = rand(0...width)
-
-        pos_key = [row, col]
-
-        next if existed_pos[pos_key]
-
-        existed_pos[pos_key] = true
-
-        mines_pos << { board_id: @board.id, x: row, y: col }
-        placed_mines += 1
-        break;
-      end
+    available_pos = (0...height).to_a.product((0...width).to_a)
+    
+    selected_pos = available_pos.sample(num_mines)
+    
+    selected_pos.each do |row, col|
+      mines_pos << { board_id: @board.id, x: row, y: col }
     end
 
     mines_pos
   end
 
   def create_mines(mines_arr)
-    Mine.insert_all(mines_arr)
+    ActiveRecord::Base.transaction do
+      mines_arr.each_slice(10000) do |batch|
+        Mine.insert_all(batch)
+      end
+    end
   end
 end
